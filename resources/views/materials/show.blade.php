@@ -27,7 +27,7 @@
                     style="height: 100px; border-radius: 5rem 0 0 5rem; text-align: center; justify-content: center;">
                     <a href="#" data-toggle="modal" data-target="#homeworkModal" class="text-secondary">
                         <div class="card-icons p-3">
-                            <strong style="font-size: 25px"><i class="fas fa-upload"></i> إضافة واجب</strong>
+                            <strong style="font-size: 25px"><i class="fas fa-upload"></i> إضافة تكليف</strong>
                         </div>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
                         <a class="nav-link {{ request()->is('homework*') ? '' : 'active' }}" href="{{ route('materials.show', $material->id) }}">المحاضرات</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link {{ request()->is('materials*') ? '' : 'active' }}" href="{{ route('homework.show', $material->id) }}">الواجبات</a>
+                      <a class="nav-link {{ request()->is('materials*') ? '' : 'active' }}" href="{{ route('homework.show', $material->id) }}"> التكاليف</a>
                     </li>
                 </ul>
             </div>
@@ -174,12 +174,12 @@
                     <div class="row justify-content-center">
                         <div class="card col-md-12 border-0">
                             <div class="card-header text-center">
-                                رفع واجب جديد
+                                رفع تكليف جديد
                             </div>
                             @isset(auth()->user()->block)
                                 @if (auth()->user()->block)
                                     <div class="alert alert-danger" role="alert">
-                                        للأسف لا تستطيع رفع واجب يرجى التواصل مع الإدارة لمعرفة السبب
+                                        للأسف لا تستطيع رفع تكليف يرجى التواصل مع الإدارة لمعرفة السبب
                                     </div>
                                 @else
                                     <div class="card-body">
@@ -246,7 +246,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-4 mt-2">
-                                                    <button type="submit" class="btn btn-secondary">رفع الواجب</button>
+                                                    <button type="submit" class="btn btn-secondary">رفع  التكليف</button>
                                                 </div>
                                             </div>
 
