@@ -59,7 +59,7 @@
                     <li class="nav-item {{ request()->is('departments*') ? 'active' : '' }}">
                         <a class="nav-link" href="{{ route('departments.index') }}">
                             <i class="fas fa-boxes"></i>
-                            الواجبات
+                             التكاليف
                         </a>
                     </li>
                     <li class="nav-item {{ request()->is('videos*', 'channel*', 'history') ? 'active' : '' }} dropdown">

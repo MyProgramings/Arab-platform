@@ -47,7 +47,7 @@ class HomeworkController extends Controller
 
         return redirect()->back()->with(
             'success',
-            'تم اضافه الواجب بنجاح'
+            'تم اضافه  التكليف بنجاح'
         );
     }
 
