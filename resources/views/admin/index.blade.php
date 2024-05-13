@@ -30,7 +30,7 @@
                     <div class="row no-gutters align-items-center text-right">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                            عدد الفئات</div>
+                            عدد الكورسات</div>
                             <div class="h5 mb-0 font-weight-bold text-gray-800">{{ $numberOfChannels }}</div>
                         </div>
                         <div class="col-auto">
@@ -62,7 +62,7 @@
         data: {
             labels: names,
             datasets: [{
-                label: 'الفئات الأكثر مشاهدة',
+                label: 'الكورسات الأكثر مشاهدة',
                 backgroundColor: 'rgb(0, 33, 47)',
                 borderColor: 'rgb(255, 99, 132)',
                 data: totalViews

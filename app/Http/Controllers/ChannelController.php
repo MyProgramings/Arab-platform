@@ -9,7 +9,7 @@ class ChannelController extends Controller
 {
     public function index() {
         $channels = User::all()->sortByDesc('created_at');
-        $title = 'أحدث الفئات';
+        $title = 'أحدث الكورسات';
         return view('channels', compact('channels', 'title'));
     }
 
@@ -31,7 +31,7 @@ class ChannelController extends Controller
         $user->administration_level = $request->administration_level;
         $user->save();
         
-        session()->flash('flash_message', 'تم تعديل صلاحيات الفئة بنجاح');
+        session()->flash('flash_message', 'تم تعديل صلاحيات الكورس بنجاح');
 
         return redirect(route('channels.index'));
     }
@@ -40,7 +40,7 @@ class ChannelController extends Controller
     {
         $user->delete();
 
-        session()->flash('flash_message', 'تم حذف الفئة بنجاح');
+        session()->flash('flash_message', 'تم حذف الكورس بنجاح');
 
         return redirect(route('channels.index'));
     }
@@ -50,7 +50,7 @@ class ChannelController extends Controller
         $user->block = 1;
         $user->save();
         
-        session()->flash('flash_message', 'تم حظر الفئة بنجاح');
+        session()->flash('flash_message', 'تم حظر الكورس بنجاح');
 
         return redirect(route('channels.index'));
     }
@@ -66,7 +66,7 @@ class ChannelController extends Controller
         $user->block = 0;
         $user->save();
         
-        session()->flash('flash_message', 'تم فك حظر الفئة بنجاح');
+        session()->flash('flash_message', 'تم فك حظر الكورس بنجاح');
 
         return redirect(route('channels.blocked'));
     }

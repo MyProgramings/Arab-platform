@@ -2,8 +2,12 @@
 
 @section('content')
     <div class="mx-4">
-        <button type="submit" class="btn btn-secondary mt-1 mr-2" data-toggle="modal" data-target="#exampleModal"
-            style="float: inline-end">إضافة قسم</button>
+        @auth
+            @if (auth()->user()->administration_level > 0)
+                <button type="submit" class="btn btn-secondary mt-1 mr-2" data-toggle="modal" data-target="#exampleModal"
+                    style="float: inline-end">إضافة قسم</button>
+            @endif
+        @endauth
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li aria-current="page">الأقسام</li>
@@ -27,10 +31,23 @@
                                 <strong style="font-size: 50px">{{ $acronym }}</strong>
                                 <i class="fas fa-2x"></i>
                             </div>
-                            <div class="card-footer">
-                                <strong class="text-muted">
+                            <div class="card-footer" style="height: 50px;">
+                                <strong class="text-muted" style="float: right;">
                                     <span>{{ $department->name }}</span>
                                 </strong>
+                                @auth
+                                    @if ($department->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
+                                        @if (!auth()->user()->block)
+                                            <form method="POST" action="{{ route('departments.destroy', $department->id) }}"
+                                                onsubmit="return confirm('هل أنت متأكد أنك تريد حذف القسم هذا؟')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="float-left"><i
+                                                        class="far fa-trash-alt text-danger fa-lg"></i></button>
+                                            </form>
+                                        @endif
+                                    @endif
+                                @endauth
                             </div>
                         </a>
                     </div>

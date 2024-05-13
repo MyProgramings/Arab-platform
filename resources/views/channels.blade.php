@@ -22,13 +22,13 @@
                             <p class="text-center mt-4">{{$channel->name}}</p>
                         </div>
                         <div class="text-center">
-                            <a href="{{ route('main.channels.videos', $channel->id) }}" class="btn btn-secondary btn-lg">تصفح الفئة</a>
+                            <a href="{{ route('main.channels.videos', $channel->id) }}" class="btn btn-secondary btn-lg">تصفح الكورس</a>
                         </div>
                     </div>
                 </div>             
             @empty
                 <div class="mx-auto">
-                    <p>لا يوجد فئات</p>
+                    <p>لا يوجد كورسات</p>
                 </div> 
             @endforelse
         </div>

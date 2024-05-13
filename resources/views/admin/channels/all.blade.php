@@ -5,7 +5,7 @@
 @endsection
 
 @section('heading')
-جميع الفئات
+جميع الكورسات
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
         <table id="videos-table" class="table table-stribed text-right" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>اسم الفئة</th>
+                    <th>اسم الكورس</th>
                     <th>البريد الإلكتروني</th>
                     <th>عدد مقاطع الفيديو</th>
                     <th>مجموع المشاهدات</th>
