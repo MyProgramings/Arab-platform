@@ -5,7 +5,7 @@
 @endsection
 
 @section('heading')
-الفئات المحظورة
+الكورسات المحظورة
 @endsection
 
 @section('content')
@@ -15,7 +15,7 @@
         <table id="videos-table" class="table table-stribed text-right" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>اسم الفئة</th>
+                    <th>اسم الكورس</th>
                     <th>البريد الإلكتروني</th>
                     <th>تاريخ الإنشاء</th>
                     <th>فك الحظر</th>
@@ -34,7 +34,7 @@
                                 @csrf  
 
                                 @if ($user->block)
-                                    <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('هل أنت متأكد أنك تريد فك حظر هذه الفئة')"><i class="fa fa-lock-open"></i> فك الحظر</button>  
+                                    <button type="submit" class="btn btn-warning btn-sm" onclick="return confirm('هل أنت متأكد أنك تريد فك حظر هذه الكورس')"><i class="fa fa-lock-open"></i> فك الحظر</button>  
                                 @endif
                             </form>
                         </td>

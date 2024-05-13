@@ -24,7 +24,7 @@ class MainController extends Controller
     public function channelsVideos(User $channel)
     {
         $videos = Video::where('user_id', $channel->id)->get();
-        $title = ' جميع الفيديوهات الخاصة بالفئة: ' . $channel->name;
+        $title = ' جميع الفيديوهات الخاصة بالكورس: ' . $channel->name;
         return view('videos.my-videos', compact('videos', 'title'));
     }
 }

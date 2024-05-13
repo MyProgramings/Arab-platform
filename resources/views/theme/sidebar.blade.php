@@ -21,29 +21,6 @@
       <!-- Divider -->
       <hr class="sidebar-divider">
 
-
-      <!-- Nav Item - Pages Collapse Menu -->
-      <li class="nav-item {{ request()->is('admin/departments') ? 'active' : '' }}">
-        <a class="nav-link text-right" href="{{ route('departments.index') }}">
-        <i class="fas fa-user-lock"></i>
-          <span>الأقسام</span>
-        </a>
-      </li>
-
-      <li class="nav-item {{ request()->is('admin/departments') ? 'active' : '' }}">
-        <a class="nav-link text-right" href="{{ route('departments.index') }}">
-        <i class="fas fa-user-lock"></i>
-          <span>المواد</span>
-        </a>
-      </li>
-
-      <li class="nav-item {{ request()->is('admin/departments') ? 'active' : '' }}">
-        <a class="nav-link text-right" href="{{ route('departments.index') }}">
-        <i class="fas fa-user-lock"></i>
-          <span>الكورسات</span>
-        </a>
-      </li>
-
       <!-- Nav Item - Pages Collapse Menu -->
       <li class="nav-item {{ request()->is('admin/channels') ? 'active' : '' }}">
         <a class="nav-link text-right" href="{{ route('channels.index') }}">
@@ -56,7 +33,7 @@
       <li class="nav-item {{ request()->is('admin/channels/blocked*') ? 'active' : '' }}">
         <a class="nav-link text-right" href="{{ route('channels.blocked') }}">
         <i class="fas fa-lock"></i>
-          <span>الفئات المحظورة</span>
+          <span>الكورسات المحظورة</span>
         </a>
       </li>
 
@@ -64,7 +41,7 @@
       <li class="nav-item {{ request()->is('admin/allChannels*') ? 'active' : '' }}">
         <a class="nav-link text-right" href="{{ route('channels.all') }}">
         <i class="fas fa-film"></i>
-          <span>الفئات</span>
+          <span>الكورسات</span>
         </a>
       </li>
 
