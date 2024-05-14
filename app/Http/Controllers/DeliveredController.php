@@ -15,12 +15,19 @@ class DeliveredController extends Controller
         $delivereds = Delivered::get();
         return view('delivereds.uploader', compact('delivereds'));
     }
+    public function create_by_homework($id)
+    {
+        $homework = Homework::find($id);
+        $material_id = $homework->material_id;
+        return view('delivereds.uploader', compact('id', 'material_id'));
+    }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'title' => 'required',
             'material_id' => 'required',
+            'homework_id' => 'required',
         ]);
 
         if ($request->hasFile('file_path')) {
@@ -30,15 +37,15 @@ class DeliveredController extends Controller
         } else
             $file_path = 'No File';
 
-        $video = Delivered::create([
+        Delivered::create([
             'title'       => $request->title,
             'file_path'       => $file_path,
             'material_id'       => $request->material_id,
-            'homework_id'       => 1,
+            'homework_id'       => $request->homework_id,
             'user_id'     => auth()->id(),
         ]);
 
-        return redirect()->back()->with(
+        return redirect()->route('homework.show', $request->material_id)->with(
             'success',
             'تم اضافه  التكليف بنجاح'
         );
@@ -46,10 +53,10 @@ class DeliveredController extends Controller
 
     public function show($id)
     {
-        $material = Material::find($id);
-        $delivered = Homework::find($id);
+        // $material = Material::find($id);
+        $homework = Homework::find($id);
         $delivereds = Delivered::all();
-        return view('delivereds.show', compact('material', 'delivered', 'delivereds'));
+        return view('delivereds.show', compact('homework', 'delivereds'));
     }
     public function download_file($id)
     {

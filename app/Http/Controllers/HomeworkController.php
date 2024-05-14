@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Homework;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeworkController extends Controller
 {
@@ -18,6 +19,12 @@ class HomeworkController extends Controller
     {
         $homeworks = Homework::get();
         return view('homeworks.uploader', compact('homeworks'));
+    }
+
+    public function download_file($id)
+    {
+        $homework = Homework::find($id);
+        return Storage::disk('public')->download($homework->file_path);
     }
 
     public function store(Request $request)
@@ -36,7 +43,7 @@ class HomeworkController extends Controller
         } else
             $file_path = 'No File';
 
-        $video = Homework::create([
+        Homework::create([
             'title'       => $request->title,
             'deadline'       => $request->deadline,
             'material_id'       => $request->material_id,
