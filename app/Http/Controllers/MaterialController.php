@@ -11,11 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class MaterialController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $materials = Material::all();
@@ -30,29 +25,12 @@ class MaterialController extends Controller
         return view('materials.materials_by_department', compact('materials', 'department', 'id'));
     }
 
-    public function download_file($id)
-    {
-        $lecture = Lecture::find($id);
-        return Storage::disk('public')->download($lecture->file_path);
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create($id)
     {
         $departments = Department::get();
         return view('materials.uploader', compact('departments', 'id'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -71,12 +49,6 @@ class MaterialController extends Controller
         );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Material  $material
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $material = Material::find($id);
@@ -85,37 +57,22 @@ class MaterialController extends Controller
         return view('materials.show', compact('material', 'lectures', 'homeworks'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Material  $material
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Material $material)
     {
         //
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Material  $material
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Material $material)
     {
         //
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Material  $material
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Material $material)
+    public function destroy($id)
     {
-        //
+        $material = Material::find($id);
+        
+        $material->delete();
+
+        return back()->with('success', 'تم حذف المادة بنجاح');
     }
 }

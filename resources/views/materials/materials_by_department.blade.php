@@ -2,15 +2,18 @@
 
 @section('content')
     <div class="mx-4">
-        <button type="submit" class="btn btn-secondary mt-1 mr-2" data-toggle="modal" data-target="#exampleModal"
-            style="float: inline-end">إضافة مادة</button>
+        @auth
+            @if (auth()->user()->administration_level > 0)
+                <button type="submit" class="btn btn-secondary mt-1 mr-2" data-toggle="modal" data-target="#exampleModal"
+                    style="float: inline-end">إضافة مادة</button>
+            @endif
+        @endauth
 
-
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
-                    @isset($department->id)
-                <li aria-current="page">&nbsp;{{ $department->department->name }}</li>
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
+                @isset($department->id)
+                    <li aria-current="page">&nbsp;{{ $department->department->name }}</li>
                 @endisset
             </ol>
         </nav>
@@ -32,10 +35,23 @@
                                 <strong style="font-size: 50px">{{ $acronym }}</strong>
                                 <i class="fas fa-2x"></i>
                             </div>
-                            <div class="card-footer">
-                                <strong class="text-muted">
+                            <div class="card-footer" style="height: 50px;">
+                                <strong class="text-muted" style="float: right;">
                                     <span>{{ $material->title }}</span>
                                 </strong>
+                                @auth
+                                    @if ($material->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
+                                        @if (!auth()->user()->block)
+                                            <form method="POST" action="{{ route('materials.destroy', $material->id) }}"
+                                                onsubmit="return confirm('هل أنت متأكد أنك تريد حذف المادة هذا؟')">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="float-left"><i
+                                                        class="far fa-trash-alt text-danger fa-lg"></i></button>
+                                            </form>
+                                        @endif
+                                    @endif
+                                @endauth
                             </div>
                         </a>
                     </div>

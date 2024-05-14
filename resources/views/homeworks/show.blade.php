@@ -17,28 +17,32 @@
                 @endisset
             </ol>
         </nav>
-        <div class="row" style="justify-content: center;">
-            <div class="col-sm-6 col-md-4 col-lg-3 p-0">
-                <div class="card"
-                    style="height: 100px; border-radius: 0 5rem 5rem 0; text-align: center; justify-content: center;">
-                    <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-secondary">
-                        <div class="card-icons p-3">
-                            <strong style="font-size: 25px"><i class="fas fa-upload"></i> رفع محاضرة</strong>
+        @auth
+            @if (auth()->user()->administration_level > 0)
+                <div class="row" style="justify-content: center;">
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-0">
+                        <div class="card"
+                            style="height: 100px; border-radius: 0 5rem 5rem 0; text-align: center; justify-content: center;">
+                            <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-secondary">
+                                <div class="card-icons p-3">
+                                    <strong style="font-size: 25px"><i class="fas fa-upload"></i> رفع محاضرة</strong>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 p-0">
-                <div class="card"
-                    style="height: 100px; border-radius: 5rem 0 0 5rem; text-align: center; justify-content: center;">
-                    <a href="#" data-toggle="modal" data-target="#homeworkModal" class="text-secondary">
-                        <div class="card-icons p-3">
-                            <strong style="font-size: 25px"><i class="fas fa-upload"></i> إضافة تكليف</strong>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-0">
+                        <div class="card"
+                            style="height: 100px; border-radius: 5rem 0 0 5rem; text-align: center; justify-content: center;">
+                            <a href="#" data-toggle="modal" data-target="#homeworkModal" class="text-secondary">
+                                <div class="card-icons p-3">
+                                    <strong style="font-size: 25px"><i class="fas fa-upload"></i> إضافة تكليف</strong>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 </div>
-            </div>
-        </div>
+            @endif
+        @endauth
         <div class="card text-center mt-2">
             @isset($material)
                 <div class="card-header">
@@ -67,8 +71,12 @@
                                     <th class="border-0">المحاضر</th>
                                     <th class="border-0">الملف المرفق</th>
                                     <th class="border-0">الوقت التبقي للتسليم</th>
-                                    <th class="border-0">تسليم  التكليف</th>
-                                    <th class="border-0">عرض  التكليف</th>
+                                    <th class="border-0">تسليم التكليف</th>
+                                    @auth
+                                        @if (auth()->user()->administration_level > 0)
+                                            <th class="border-0">عرض التكليف</th>
+                                        @endif
+                                    @endauth
                                 </tr>
                             </thead>
 
@@ -88,13 +96,13 @@
                                             <td>{{ $homework->user->user_name }}</td>
                                             <td>
                                                 @if ($homework->file_path != 'No File')
-                                                    <a href="{{ route('download-file', $homework->id) }}"
+                                                    <a href="{{ route('homework.download_file', $homework->id) }}"
                                                         class="btn btn-sm btn-secondary">
                                                         <i class="fa fa-download"></i> {{ $homework->file_path }}
                                                     </a>
                                                 @endif
                                             </td>
-                                            <td>
+                                            <td class="py-0">
                                                 <div class="counter wow animate__animated animate__fadeInDown">
                                                     <div class="defaultCountdown"
                                                         data-delivery-id="delivery-{{ $homework->id }}"
@@ -105,20 +113,26 @@
                                             <td>
                                                 @if ($today->lt($last))
                                                     <div class="delivery" id="delivery-{{ $homework->id }}">
-                                                        <a href="#" data-toggle="modal" data-target="#deliveredModal"
+                                                        <a href="{{ route('homework.delivered.create', $homework->id) }}"
                                                             class="btn btn-sm btn-secondary">
                                                             <i class="fa fa-upload"></i> تسليم
                                                         </a>
                                                     </div>
+                                                @else
+                                                    عذراً لايمكنك التسليم
                                                 @endif
                                             </td>
                                             <td>
-                                                <div>
-                                                    <a href="{{ route('delivered.show', $homework->id) }}"
-                                                        class="btn btn-sm btn-secondary">
-                                                        <i class="fa fa-file"></i> عرض
-                                                    </a>
-                                                </div>
+                                                @auth
+                                                    @if (auth()->user()->administration_level > 0)
+                                                        <div>
+                                                            <a href="{{ route('delivered.show', $homework->id) }}"
+                                                                class="btn btn-sm btn-secondary">
+                                                                <i class="fa fa-file"></i> عرض
+                                                            </a>
+                                                        </div>
+                                                    @endif
+                                                @endauth
                                             </td>
                                         </tr>
                                     @endif
@@ -157,7 +171,8 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="title">عنوان المحاضرة</label>
-                                                <input type="text" id="title" name="title" value="{{ old('title') }}"
+                                                <input type="text" id="title" name="title"
+                                                    value="{{ old('title') }}"
                                                     class="form-control @error('title') is-invalid @enderror">
                                                 @error('title')
                                                     <span class="invalid-feedback">
@@ -291,7 +306,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-4 mt-2">
-                                                    <button type="submit" class="btn btn-secondary">رفع  التكليف</button>
+                                                    <button type="submit" class="btn btn-secondary">رفع التكليف</button>
                                                 </div>
                                             </div>
 
@@ -319,7 +334,8 @@
                             @isset(auth()->user()->block)
                                 @if (auth()->user()->block)
                                     <div class="alert alert-danger" role="alert">
-                                        للأسف لا تستطيع تسليم تكليف يرجى التواصل مع الإدارة لمعرفة السبب
+                                        للأسف لا تستطيع تسليم تكليف يرجى التواصل مع الإدارة
+                                        لمعرفة السبب
                                     </div>
                                 @else
                                     <div class="card-body">
@@ -327,8 +343,12 @@
                                             enctype="multipart/form-data">
                                             @csrf
                                             <div class="form-group">
-                                                <input type="text" id="material_id" name="material_id"
-                                                    value="{{ $material->id }}" class="d-none">
+                                                <input type="text" id="material_id" name="material_id" value=""
+                                                    class="">
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="text" id="homework_id" name="homework_id" value=""
+                                                    class="">
                                             </div>
 
                                             <div class="form-group">
@@ -348,7 +368,8 @@
                                                 <input type="file" id="file_path" accept=""
                                                     onchange="readCoverImage(this);" name="file_path"
                                                     class="form-control @error('file_path') is-invalid @enderror">
-                                                <div class="input-title">اسحب الملف إلى هنا أو انقر للاختيار يدويًا</div>
+                                                <div class="input-title">اسحب الملف إلى هنا
+                                                    أو انقر للاختيار يدويًا</div>
 
                                                 @error('file_path')
                                                     <span class="invalid-feedback">
@@ -363,7 +384,8 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-4 mt-2">
-                                                    <button type="submit" class="btn btn-secondary">رفع  التكليف</button>
+                                                    <button type="submit" class="btn btn-secondary">رفع
+                                                        التكليف</button>
                                                 </div>
                                             </div>
 

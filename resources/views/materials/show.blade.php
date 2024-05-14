@@ -11,36 +11,42 @@
                 <li aria-current="page"> / {{ $material->title }}</li>
             </ol>
         </nav>
-        <div class="row" style="justify-content: center;">
-            <div class="col-sm-6 col-md-4 col-lg-3 p-0">
-                <div class="card"
-                    style="height: 100px; border-radius: 0 5rem 5rem 0; text-align: center; justify-content: center;">
-                    <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-secondary">
-                        <div class="card-icons p-3">
-                            <strong style="font-size: 25px"><i class="fas fa-upload"></i> رفع محاضرة</strong>
+        @auth
+            @if (auth()->user()->administration_level > 0)
+                <div class="row" style="justify-content: center;">
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-0">
+                        <div class="card"
+                            style="height: 100px; border-radius: 0 5rem 5rem 0; text-align: center; justify-content: center;">
+                            <a href="#" data-toggle="modal" data-target="#exampleModal" class="text-secondary">
+                                <div class="card-icons p-3">
+                                    <strong style="font-size: 25px"><i class="fas fa-upload"></i> رفع محاضرة</strong>
+                                </div>
+                            </a>
                         </div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-6 col-md-4 col-lg-3 p-0">
-                <div class="card"
-                    style="height: 100px; border-radius: 5rem 0 0 5rem; text-align: center; justify-content: center;">
-                    <a href="#" data-toggle="modal" data-target="#homeworkModal" class="text-secondary">
-                        <div class="card-icons p-3">
-                            <strong style="font-size: 25px"><i class="fas fa-upload"></i> إضافة تكليف</strong>
+                    </div>
+                    <div class="col-sm-6 col-md-4 col-lg-3 p-0">
+                        <div class="card"
+                            style="height: 100px; border-radius: 5rem 0 0 5rem; text-align: center; justify-content: center;">
+                            <a href="#" data-toggle="modal" data-target="#homeworkModal" class="text-secondary">
+                                <div class="card-icons p-3">
+                                    <strong style="font-size: 25px"><i class="fas fa-upload"></i> إضافة تكليف</strong>
+                                </div>
+                            </a>
                         </div>
-                    </a>
+                    </div>
                 </div>
-            </div>
-        </div>
+            @endif
+        @endauth
         <div class="card text-center mt-2">
             <div class="card-header">
                 <ul class="nav nav-tabs card-header-tabs">
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('homework*') ? '' : 'active' }}" href="{{ route('materials.show', $material->id) }}">المحاضرات</a>
+                        <a class="nav-link {{ request()->is('homework*') ? '' : 'active' }}"
+                            href="{{ route('materials.show', $material->id) }}">المحاضرات</a>
                     </li>
                     <li class="nav-item">
-                      <a class="nav-link {{ request()->is('materials*') ? '' : 'active' }}" href="{{ route('homework.show', $material->id) }}"> التكاليف</a>
+                        <a class="nav-link {{ request()->is('materials*') ? '' : 'active' }}"
+                            href="{{ route('homework.show', $material->id) }}"> التكاليف</a>
                     </li>
                 </ul>
             </div>
@@ -69,7 +75,7 @@
                                             <td>{{ $lecture->user->user_name }}</td>
                                             <td>
                                                 @if ($lecture->file_path != 'No File')
-                                                    <a href="{{ route('download-file', $lecture->id) }}"
+                                                    <a href="{{ route('lecture.download_file', $lecture->id) }}"
                                                         class="btn btn-sm btn-secondary">
                                                         <i class="fa fa-download"></i> {{ $lecture->file_path }}
                                                     </a>
@@ -246,7 +252,7 @@
 
                                             <div class="form-group row">
                                                 <div class="col-md-4 mt-2">
-                                                    <button type="submit" class="btn btn-secondary">رفع  التكليف</button>
+                                                    <button type="submit" class="btn btn-secondary">رفع التكليف</button>
                                                 </div>
                                             </div>
 

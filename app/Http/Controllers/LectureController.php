@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lecture;
 use App\Models\Material;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class LectureController extends Controller
 {
@@ -18,6 +19,12 @@ class LectureController extends Controller
     {
         $materials = Material::get();
         return view('lectures.uploader', compact('materials'));
+    }
+
+    public function download_file($id)
+    {
+        $lecture = Lecture::find($id);
+        return Storage::disk('public')->download($lecture->file_path);
     }
 
     public function store(Request $request)

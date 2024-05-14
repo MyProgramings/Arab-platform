@@ -9,10 +9,12 @@
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
                 <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
+                @isset($material->department)    
                 <li><a
                         href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->department->name }}&nbsp;</a>
                 </li>
                 <li aria-current="page"> / {{ $material->title }}</li>
+                @endisset
             </ol>
         </nav>
         <div class="card text-center mt-2">
@@ -25,14 +27,16 @@
                                 <tr>
                                     <th class="border-0">#</th>
                                     <th class="border-0">العنوان</th>
-                                    <th class="border-0">المحاضر</th>
+                                    <th class="border-0">الطالب</th>
                                     <th class="border-0">الملف المرفق</th>
                                 </tr>
                             </thead>
 
                             <tbody>
+                                {{-- @isset($material) --}}
+                                    
                                 @foreach ($delivereds as $delivered)
-                                    @if ($delivered->material_id == $material->id)
+                                    @if ($delivered->homework_id == $homework->id)
                                         <tr>
                                             <td>{{ $delivered->id }}</td>
                                             <td>{{ $delivered->title }}</td>
@@ -48,6 +52,7 @@
                                         </tr>
                                     @endif
                                 @endforeach
+                                {{-- @endisset --}}
                             </tbody>
                         </table>
                     </div>

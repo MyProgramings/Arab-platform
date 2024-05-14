@@ -38,7 +38,10 @@ Route::get('/department/materials/{id}', [MaterialController::class, 'materials_
 
 Route::get('/materials/create/{id}', [MaterialController::class, 'create'])->name('materials.create_with_department');
 
-Route::get('/download/file/{id}', [MaterialController::class, 'download_file'])->name('download-file');
+Route::get('/download/file/{id}', [MaterialController::class, 'download_file'])->name('material-download-file');
+
+Route::get('/download/file/{id}', [LectureController::class, 'download_file'])->name('lecture.download_file');
+Route::get('/homework/download/file/{id}', [HomeworkController::class, 'download_file'])->name('homework.download_file');
 
 Route::resource('/materials', MaterialController::class);
 
@@ -48,7 +51,8 @@ Route::resource('/homework', HomeworkController::class);
 
 Route::resource('/delivered', DeliveredController::class);
 
-Route::get('/download/file/{id}', [DeliveredController::class, 'download_file'])->name('delivered-file');
+Route::get('/homework/delivered/{id}', [DeliveredController::class, 'create_by_homework'])->name('homework.delivered.create');
+Route::get('/delivered/download/file/{id}', [DeliveredController::class, 'download_file'])->name('delivered-file');
 
 
 
