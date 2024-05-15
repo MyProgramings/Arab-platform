@@ -2,9 +2,9 @@
     <ul class="pr-0 navbar-nav bg-primary-subtle sidebar sidebar-dark accordion" id="accordionSidebar" style="background-color: #022a52">
 
       <!-- Sidebar - Brand -->
-      <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+      <a class="sidebar-brand d-flex align-items-center justify-content-center bg-white" href="/">
         <div class="sidebar-brand-icon">
-          <img style="width: 40%" src="{!! asset('logo.png') !!}"> 
+          <img style="width: 80%" src="{!! asset('logo.png') !!}"> 
         </div>
       </a>
 

@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة تعليمية</title>
+    <title>Acourses</title>
 
     <!-- bootstarp -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
@@ -34,7 +34,7 @@
 <body dir="rtl" style="text-align: right">
     <div>
         <nav class="navbar navbar-expand-lg navbar-light bg-light bg-white">
-            <a class="navbar-brand" href="#">منصة تعليمية</a>
+            <a class="navbar-brand" href="#"><img style="width: 230px" src="{!! asset('logo.png') !!}"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
