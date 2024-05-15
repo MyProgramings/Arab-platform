@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>لوحة الإدارة - منصة تعليمية</title>
+    <title>لوحة الإدارة - Acourses</title>
 
     <!-- Custom fonts for this template-->
     <link href="{!! asset('theme/vendor/fontawesome-free/css/all.min.css') !!}" rel="stylesheet" type="text/css">

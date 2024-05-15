@@ -18,7 +18,7 @@
                 <div class="col-sm-6 col-md-4 col-lg-3 pb-3">
                     <div class="card"
                         style="background: rgb(3,54,79);
-                    background: linear-gradient(90deg, rgba(3,54,79,0.6152836134453781) 0%, rgba(0,212,255,1) 100%);">
+                    background: linear-gradient(90deg, rgba(3, 54, 79, 0.473) 0%, rgba(0, 213, 255, 0.486) 100%);">
                         <a href="{{ route('material_by_department', $department->id) }}" class="text-white">
                             <div class="card-icons p-3">
                                 @php
