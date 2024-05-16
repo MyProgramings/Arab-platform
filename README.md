@@ -1,134 +1,44 @@
-<div dir="rtl">
-# خطوات تشغيل المشروع
+About Laravel
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
 
-* إنشاء الحزم اللازمة لتشغيل المشروع بتنفيذ :
-<h6 dir="ltr">
+Simple, fast routing engine.
+Powerful dependency injection container.
+Multiple back-ends for session and cache storage.
+Expressive, intuitive database ORM.
+Database agnostic schema migrations.
+Robust background job processing.
+Real-time event broadcasting.
+Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-`composer install`
+Learning Laravel
+Laravel has the most extensive and thorough documentation and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-</h6>
+You may also try the Laravel Bootcamp, where you will be guided through building a modern Laravel application from scratch.
 
-<h6 dir="ltr">
+If you don't feel like reading, Laracasts can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
 
-`npm install`
+Laravel Sponsors
+We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel Patreon page.
 
-</h6>
+Premium Partners
+Vehikl
+Tighten Co.
+Kirschbaum Development Group
+64 Robots
+Cubet Techno Labs
+Cyber-Duck
+Many
+Webdock, Fast VPS Hosting
+DevSquad
+Curotec
+OP.GG
+WebReinvent
+Lendio
+Contributing
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the Laravel documentation.
 
-* إنشاء ملف باسم `env.` في المسار الأساسي للمشروع.
-* تعبئة الملف `env.` بالبيانات، و نستطيع نسخ هذه البيانات من الملف `env.example.` ولصقها بداخل الملف `env.` و التعديل عليها.
-* تغيير اسم قاعدة البيانات في الملف `env.` باسم مشابه تمامًا لقاعدة البيانات التي أنشأناها.
-* في ملف `env.` نحدد نوع التخزين ب `s3`
-<h6 dir="ltr">
+Code of Conduct
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the Code of Conduct.
 
-`FILESYSTEM_DISK=s3`
-
-</h6>
-
-* المشروع يعمل على معالجة مقاطع الفيديو في الخلفية باستخدام `QUEUE` لذلك في ملف `.env` نغير
-<h6 dir="ltr">
-
-`QUEUE_CONNECTION=database`
-
-</h6>
-
-* مقاطع الفيديو التي تُرفع على الموقع تُخزن في `amazon s3`، لذلك يجب إنشاء حساب في `amazon s3` وربطه مع المشروع
-<h6 dir="ltr">
-
-`AWS_ACCESS_KEY_ID=`
-
-</h6>
-
-<h6 dir="ltr">
-
-`AWS_SECRET_ACCESS_KEY=`
-
-</h6>
-
-<h6 dir="ltr">
-
-`AWS_DEFAULT_REGION=`
-
-</h6>
-<h6 dir="ltr">
-
-`AWS_BUCKET=`
-
-</h6>
-
-
-* يحتوي المشروع على نظام إشعارات، استخدمنا خدمة الاستضافة `pusher` لإنشاء إشعارات في الوقت الحالي، لذلك لكي تعمل الإشعارات لديك يجب إنشاء حساب في موقع `pusher.com` وربط ال api مع المشروع
-<h6 dir="ltr">
-
-`PUSHER_APP_ID=`
-
-</h6>
-
-<h6 dir="ltr">
-
-`PUSHER_APP_KEY=`
-`
-</h6>
-
-<h6 dir="ltr">
-
-`PUSHER_APP_SECRET=`
-
-</h6>
-
-* من الملف `.env` نغير
-<h6 dir="ltr"> 
-
-`BROADCAST_DRIVER=pusher`
-
-</h6>
-
-* بعدها لإنشاء مفتاح خاص بالمشروع ننفذ الأمر:
-<h6 dir="ltr"> 
-
-`php artisan key:generate`
-
-</h6>
-
-* بعدها لإنشاء وصلة مع المجلد storage الذي يحتوي على الصور ومقاطع الفيديو ننفذ الأمر:
-<h6 dir="ltr"> 
-
-`php artisan storage:link`
-
-</h6>
-
-* الآن أصبح المشروع جاهز للتشغيل ننفذ الأمر:
-<h6 dir="ltr">
-
-`php artisan serve`
-
-</h6>
-
-* ننسخ الرابط الذي ظهر ونلصقه بالمتصفح.
-
-* لتشغيل المهمة `job` التي تعمل على معالجة مقاطع الفيديو في الخلفية ننفذ الأمر التالي في نافذة `Console` جديدة
-<h6 dir="ltr">
-
-`php artisan queue:work`
-
-</h6>
-
-# ملاحظة: 
-نستطيع أيضًا تحويل المشروع ليعمل على القرص المحلي وذلك باتباع بعض الخطوات البسيطة:
-
-* من ملف `env.` نغير قيمة `FILESYSTEM_DISK` من `s3` إلى `public`
-<h6 dir="ltr">
-
-`FILESYSTEM_DISK=public`
-
-</h6>
-
-
-* ولا ننسى إيقاف عمل المهمة `job` بالضغط على `Ctrl+c` وإعادة تشغيلها من جديد
-
-* الآن بعد أن أصبح المشروع يعمل على القرص المحلي نستطيع ملىء قاعدة البيانات بالبذور
-<h6 dir="ltr">
-
-`php artisan migrate:fresh --seed`
-
-</h6>
-</div>
+Security Vulnerabilities
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via taylor@laravel.com. All security vulnerabilities will be promptly addressed.
