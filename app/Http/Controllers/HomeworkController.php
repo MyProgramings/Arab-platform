@@ -39,7 +39,7 @@ class HomeworkController extends Controller
         if ($request->hasFile('file_path')) {
             $file = $request->file('file_path');
             $file_path = time() . '.' . $file->getClientOriginalExtension();
-            $file_path = $file->storeAs('file', $file_path);
+            $file_path = $file->storeAs('', $file_path);
         } else
             $file_path = 'No File';
 
