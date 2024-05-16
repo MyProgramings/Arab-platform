@@ -8,13 +8,11 @@
     <div class="mx-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
-                @isset($material->department)
-                    <li><a
-                            href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->department->name }}&nbsp;</a>
-                    </li>
-                    <li aria-current="page"> / {{ $material->title }}</li>
-                @endisset
+                <li><a href="{{ route('departments.index') }}">{{ $material->department->name }} / </a></li>
+                <li><a
+                        href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->title }}&nbsp;</a>
+                </li>
+                <li aria-current="page"> / Lectures & Homeworks</li>
             </ol>
         </nav>
         @auth
@@ -68,7 +66,7 @@
                                     <th class="border-0">#</th>
                                     <th class="border-0"> التكليف</th>
                                     <th class="border-0">المطلوب</th>
-                                    <th class="border-0">المحاضر</th>
+                                    <th class="border-0">المعلم</th>
                                     <th class="border-0">الملف المرفق</th>
                                     <th class="border-0">الوقت التبقي للتسليم</th>
                                     <th class="border-0">تسليم التكليف</th>
@@ -85,56 +83,58 @@
                                     $today = Carbon\Carbon::now(new \DateTimeZone('Asia/Aden'));
                                 @endphp
                                 @foreach ($homeworks as $homework)
-                                    @if ($homework->material_id == $material->id)
-                                        @php
-                                            $last = $homework->deadline;
-                                        @endphp
-                                        <tr>
-                                            <td>{{ $homework->id }}</td>
-                                            <td>{{ $homework->title }}</td>
-                                            <td>{{ $homework->description }}</td>
-                                            <td>{{ $homework->user->user_name }}</td>
-                                            <td>
-                                                @if ($homework->file_path != 'No File')
-                                                    <a href="{{ route('homework.download_file', $homework->id) }}"
-                                                        class="btn btn-sm btn-secondary">
-                                                        <i class="fa fa-download"></i> {{ $homework->file_path }}
-                                                    </a>
-                                                @endif
-                                            </td>
-                                            <td class="py-0">
-                                                <div class="counter wow animate__animated animate__fadeInDown">
-                                                    <div class="defaultCountdown"
-                                                        data-delivery-id="delivery-{{ $homework->id }}"
-                                                        data-date="{{ $homework->deadline }}">
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                @if ($today->lt($last))
-                                                    <div class="delivery" id="delivery-{{ $homework->id }}">
-                                                        <a href="{{ route('homework.delivered.create', $homework->id) }}"
+                                    @if (auth()->user()->administration_level > 0 || auth()->user()->level == $material->level)
+                                        @if ($homework->material_id == $material->id)
+                                            @php
+                                                $last = $homework->deadline;
+                                            @endphp
+                                            <tr>
+                                                <td>{{ $homework->id }}</td>
+                                                <td>{{ $homework->title }}</td>
+                                                <td>{{ $homework->description }}</td>
+                                                <td>{{ $homework->user->user_name }}</td>
+                                                <td>
+                                                    @if ($homework->file_path != 'No File')
+                                                        <a href="{{ route('homework.download_file', $homework->id) }}"
                                                             class="btn btn-sm btn-secondary">
-                                                            <i class="fa fa-upload"></i> تسليم
+                                                            <i class="fa fa-download"></i> {{ $homework->file_path }}
                                                         </a>
+                                                    @endif
+                                                </td>
+                                                <td class="py-0">
+                                                    <div class="counter wow animate__animated animate__fadeInDown">
+                                                        <div class="defaultCountdown"
+                                                            data-delivery-id="delivery-{{ $homework->id }}"
+                                                            data-date="{{ $homework->deadline }}">
+                                                        </div>
                                                     </div>
-                                                @else
-                                                    عذراً لايمكنك التسليم
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @auth
-                                                    @if (auth()->user()->administration_level > 0)
-                                                        <div>
-                                                            <a href="{{ route('delivered.show', $homework->id) }}"
+                                                </td>
+                                                <td>
+                                                    @if ($today->lt($last))
+                                                        <div class="delivery" id="delivery-{{ $homework->id }}">
+                                                            <a href="{{ route('homework.delivered.create', $homework->id) }}"
                                                                 class="btn btn-sm btn-secondary">
-                                                                <i class="fa fa-file"></i> عرض
+                                                                <i class="fa fa-upload"></i> تسليم
                                                             </a>
                                                         </div>
+                                                    @else
+                                                        عذراً لايمكنك التسليم
                                                     @endif
-                                                @endauth
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td>
+                                                    @auth
+                                                        @if (auth()->user()->administration_level > 0)
+                                                            <div>
+                                                                <a href="{{ route('delivered.show', $homework->id) }}"
+                                                                    class="btn btn-sm btn-secondary">
+                                                                    <i class="fa fa-file"></i> عرض
+                                                                </a>
+                                                            </div>
+                                                        @endif
+                                                    @endauth
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endif
                                 @endforeach
                             </tbody>
@@ -171,8 +171,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="title">عنوان المحاضرة</label>
-                                                <input type="text" id="title" name="title"
-                                                    value="{{ old('title') }}"
+                                                <input type="text" id="title" name="title" value="{{ old('title') }}"
                                                     class="form-control @error('title') is-invalid @enderror">
                                                 @error('title')
                                                     <span class="invalid-feedback">

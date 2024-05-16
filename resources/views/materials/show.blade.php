@@ -4,11 +4,11 @@
     <div class="mx-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
+                <li><a href="{{ route('departments.index') }}">{{ $material->department->name }} / </a></li>
                 <li><a
-                        href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->department->name }}&nbsp;</a>
+                        href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->title }}&nbsp;</a>
                 </li>
-                <li aria-current="page"> / {{ $material->title }}</li>
+                <li aria-current="page"> / Lectures & Homeworks</li>
             </ol>
         </nav>
         @auth
@@ -60,28 +60,30 @@
                                     <th class="border-0">#</th>
                                     <th class="border-0">المحاضرة</th>
                                     <th class="border-0">الوصف</th>
-                                    <th class="border-0">المحاضر</th>
+                                    <th class="border-0">المعلم</th>
                                     <th class="border-0">الملف المرفق</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 @foreach ($lectures as $lecture)
-                                    @if ($lecture->material_id == $material->id)
-                                        <tr>
-                                            <td>{{ $lecture->id }}</td>
-                                            <td>{{ $lecture->title }}</td>
-                                            <td>{{ $lecture->description }}</td>
-                                            <td>{{ $lecture->user->user_name }}</td>
-                                            <td>
-                                                @if ($lecture->file_path != 'No File')
-                                                    <a href="{{ route('lecture.download_file', $lecture->id) }}"
-                                                        class="btn btn-sm btn-secondary">
-                                                        <i class="fa fa-download"></i> {{ $lecture->file_path }}
-                                                    </a>
-                                                @endif
-                                            </td>
-                                        </tr>
+                                    @if (auth()->user()->administration_level > 0 || auth()->user()->level == $material->level)
+                                        @if ($lecture->material_id == $material->id)
+                                            <tr>
+                                                <td>{{ $lecture->id }}</td>
+                                                <td>{{ $lecture->title }}</td>
+                                                <td>{{ $lecture->description }}</td>
+                                                <td>{{ $lecture->user->user_name }}</td>
+                                                <td>
+                                                    @if ($lecture->file_path != 'No File')
+                                                        <a href="{{ route('lecture.download_file', $lecture->id) }}"
+                                                            class="btn btn-sm btn-secondary">
+                                                            <i class="fa fa-download"></i> {{ $lecture->file_path }}
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endif
                                 @endforeach
                             </tbody>

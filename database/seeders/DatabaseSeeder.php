@@ -15,15 +15,16 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        $this->call(ChannelSeeder::class);
-        $this->call(VideoSeeder::class);
-        $this->call(ConvertedVideoSeeder::class);
-        $this->call(NotificationSeeder::class);
-        $this->call(AlertSeeder::class);
-        $this->call(ViewSeeder::class);
-        $this->call(CommentSeeder::class);
-        $this->call(LikeSeeder::class); 
+        // $this->call(ChannelSeeder::class);
+        // $this->call(VideoSeeder::class);
+        // $this->call(ConvertedVideoSeeder::class);
+        // $this->call(NotificationSeeder::class);
+        // $this->call(AlertSeeder::class);
+        // $this->call(ViewSeeder::class);
+        // $this->call(CommentSeeder::class);
+        // $this->call(LikeSeeder::class); 
         $this->call(DepartmentSeeder::class); 
+        $this->call(UserSeeder::class); 
         $this->call(MaterialSeeder::class); 
     }
 }

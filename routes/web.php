@@ -6,6 +6,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\HomeworkController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\MaterialController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -50,6 +51,7 @@ Route::resource('/lecture', LectureController::class);
 Route::resource('/homework', HomeworkController::class);
 
 Route::resource('/delivered', DeliveredController::class);
+Route::resource('/user', UserController::class);
 
 Route::get('/homework/delivered/{id}', [DeliveredController::class, 'create_by_homework'])->name('homework.delivered.create');
 Route::get('/delivered/download/file/{id}', [DeliveredController::class, 'download_file'])->name('delivered-file');

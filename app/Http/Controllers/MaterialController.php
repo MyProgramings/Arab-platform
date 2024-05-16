@@ -34,11 +34,14 @@ class MaterialController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'level' => 'required',
             'department_id' => 'required',
             'title' => 'required',
         ]);
 
         Material::create([
+            'level'       => $request->level,
+            'user_id'       => auth()->id(),
             'department_id'       => $request->department_id,
             'title'       => $request->title,
         ]);

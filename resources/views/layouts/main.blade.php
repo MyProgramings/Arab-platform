@@ -100,8 +100,10 @@
                                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-bell fa-fw fa-lg"></i>
                                     <!-- Counter - Alerts -->
-                                    <span class="badge badge-danger badge-counter notif-count"
-                                        data-count="{{ App\Models\Alert::where('user_id', Auth::user()->id)->first()->alert }}">{{ App\Models\Alert::where('user_id', Auth::user()->id)->first()->alert }}</span>
+                                    @isset(App\Models\Alert::where('user_id', Auth::user()->id)->first()->alert)
+                                        <span class="badge badge-danger badge-counter notif-count"
+                                            data-count="{{ App\Models\Alert::where('user_id', Auth::user()->id)->first()->alert }}">{{ App\Models\Alert::where('user_id', Auth::user()->id)->first()->alert }}</span>
+                                    @endisset
                                 </a>
                                 <!-- Dropdown - Alerts -->
                                 <div class="dropdown-list dropdown-menu dropdown-menu-right text-right mt-2"
@@ -274,36 +276,36 @@
 
                         if (item.success) {
                             resposeNotifications += '<a class="dropdown-item d-flex align-items-center" href="#">\
-                                                                    <div class="ml-3">\
-                                                                        <div class="icon-circle bg-secondary">\
-                                                                            <i class="far fa-bell text-white"></i>\
+                                                                        <div class="ml-3">\
+                                                                            <div class="icon-circle bg-secondary">\
+                                                                                <i class="far fa-bell text-white"></i>\
+                                                                            </div>\
                                                                         </div>\
-                                                                    </div>\
-                                                                    <div>\
-                                                                        <div class="small text-gray-500">' + date +
+                                                                        <div>\
+                                                                            <div class="small text-gray-500">' + date +
                                 ' الساعة ' +
                                 time + '</div>\
-                                                                        <span>تهانينا لقد تم معالجة مقطع الفيديو <b>' +
+                                                                            <span>تهانينا لقد تم معالجة مقطع الفيديو <b>' +
                                 item
                                 .notification + '</b> بنجاح</span>\
-                                                                    </div>\
-                                                                </a>';
+                                                                        </div>\
+                                                                    </a>';
                         } else {
                             resposeNotifications += '<a class="dropdown-item d-flex align-items-center" href="#">\
-                                                                    <div class="ml-3">\
-                                                                        <div class="icon-circle bg-secondary">\
-                                                                            <i class="far fa-bell text-white"></i>\
+                                                                        <div class="ml-3">\
+                                                                            <div class="icon-circle bg-secondary">\
+                                                                                <i class="far fa-bell text-white"></i>\
+                                                                            </div>\
                                                                         </div>\
-                                                                    </div>\
-                                                                    <div>\
-                                                                        <div class="small text-gray-500">' + date +
+                                                                        <div>\
+                                                                            <div class="small text-gray-500">' + date +
                                 ' الساعة ' +
                                 time +
                                 '</div>\
-                                                                        <span>للأسف حدث خطأ غير متوقع أثناء معالجة مقطع الفيديو <b>' +
+                                                                            <span>للأسف حدث خطأ غير متوقع أثناء معالجة مقطع الفيديو <b>' +
                                 item.notification + '</b> يرجى رفعه مرة أخرى</span>\
-                                                                    </div>\
-                                                                </a>';
+                                                                        </div>\
+                                                                    </a>';
                         }
 
                         $('.alert-body').html(resposeNotifications);
