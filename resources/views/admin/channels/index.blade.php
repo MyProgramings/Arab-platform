@@ -10,18 +10,20 @@
 
 @section('content')
 <hr>
+<div>
+    <a href="{{ route('user.create') }}" class="btn btn-info mx-3 mb-3"><i class="fa fa-plus"></i> إضافة معلم</a>
+</div>
 <div class="row">
     <div class="col-md-12">
         <table id="videos-table" class="table table-stribed text-right" width="100%" cellspacing="0">
             <thead>
                 <tr>
-                    <th>اسم الكورس</th>
+                    <th>اسم المستخدم</th>
                     <th>البريد الإلكتروني</th>
                     <th>نوع المستخدم</th>
                     <th>تعديل</th>
                     <th>حذف</th>
                     <th>حظر</th>
-
                 </tr>
             </thead>
 

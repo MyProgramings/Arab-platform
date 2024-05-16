@@ -24,14 +24,16 @@
 
             <tbody>
                 @foreach ($channels as $channel)
+                @if ($channel->administration_level > 0)
                     <tr>
-                        <td><a href="{{ route('main.channels.videos', $channel) }}">{{ $channel->name }}</a></td>
+                        <td><a href="{{ route('main.channels.videos', $channel) }}">{{ $channel->user_name }}</a></td>
                         <td>{{ $channel->email }}</td>
                         <td>{{ $channel->videos->count() }}</td>
                         <td>
                             <p>{{ $channel->views->sum('views_number') }}</p>
                         </td>
                     </tr>
+                @endif
                 @endforeach
             </tbody>
         </table>

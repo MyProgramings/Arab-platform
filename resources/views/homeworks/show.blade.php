@@ -8,13 +8,11 @@
     <div class="mx-4">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
-                @isset($material->department)
-                    <li><a
-                            href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->department->name }}&nbsp;</a>
-                    </li>
-                    <li aria-current="page"> / {{ $material->title }}</li>
-                @endisset
+                <li><a href="{{ route('departments.index') }}">{{ $material->department->name }} / </a></li>
+                <li><a
+                        href="{{ route('material_by_department', $material->department->id) }}">&nbsp;{{ $material->title }}&nbsp;</a>
+                </li>
+                <li aria-current="page"> / Lectures & Homeworks</li>
             </ol>
         </nav>
         @auth
@@ -68,7 +66,7 @@
                                     <th class="border-0">#</th>
                                     <th class="border-0"> التكليف</th>
                                     <th class="border-0">المطلوب</th>
-                                    <th class="border-0">المحاضر</th>
+                                    <th class="border-0">المعلم</th>
                                     <th class="border-0">الملف المرفق</th>
                                     <th class="border-0">الوقت التبقي للتسليم</th>
                                     <th class="border-0">تسليم التكليف</th>

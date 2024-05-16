@@ -11,51 +11,53 @@
 
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li><a href="{{ route('departments.index') }}">الأقسام / </a></li>
                 @isset($department->id)
-                    <li aria-current="page">&nbsp;{{ $department->department->name }}</li>
+                    <li><a href="{{ route('departments.index') }}">{{ $department->department->name }} / </a></li>
                 @endisset
+                <li aria-current="page">&nbsp;المواد</li>
             </ol>
         </nav>
         <div class="row">
             @foreach ($materials as $material)
-                <div class="col-sm-6 col-md-4 col-lg-3 pb-3">
-                    <div class="card"
-                        style="background: rgb(3,47,79);
-                                background: linear-gradient(90deg, rgba(4, 51, 85, 0.432) 0%, rgba(0, 255, 195, 0.548) 100%);">
-                        <a href="{{ route('materials.show', $material->id) }}" class="text-white">
-                            <div class="card-icons p-3">
-                                @php
-                                    $words = explode(' ', $material->title);
-                                    $acronym = '';
-                                    foreach ($words as $w) {
-                                        $acronym .= mb_substr($w, 0, 1);
-                                    }
-                                @endphp
-                                <strong style="font-size: 50px">{{ $acronym }}</strong>
-                                <i class="fas fa-2x"></i>
-                            </div>
-                            <div class="card-footer" style="height: 50px;">
-                                <strong class="text-muted" style="float: right;">
-                                    <span>{{ $material->title }}</span>
-                                </strong>
-                                @auth
-                                    @if ($material->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
-                                        @if (!auth()->user()->block)
-                                            <form method="POST" action="{{ route('materials.destroy', $material->id) }}"
-                                                onsubmit="return confirm('هل أنت متأكد أنك تريد حذف المادة هذا؟')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="float-left"><i
-                                                        class="far fa-trash-alt text-danger fa-lg"></i></button>
-                                            </form>
+                @if (auth()->user()->administration_level > 0 || auth()->user()->level == $material->level)
+                    <div class="col-sm-6 col-md-4 col-lg-3 pb-3">
+                        <div class="card"
+                            style="background: rgb(3,47,79);
+                            background: linear-gradient(90deg, rgba(4, 51, 85, 0.432) 0%, rgba(0, 255, 195, 0.548) 100%);">
+                            <a href="{{ route('materials.show', $material->id) }}" class="text-white">
+                                <div class="card-icons p-3">
+                                    @php
+                                        $words = explode(' ', $material->title);
+                                        $acronym = '';
+                                        foreach ($words as $w) {
+                                            $acronym .= mb_substr($w, 0, 1);
+                                        }
+                                    @endphp
+                                    <strong style="font-size: 50px">{{ $acronym }}</strong>
+                                    <i class="fas fa-2x"></i>
+                                </div>
+                                <div class="card-footer" style="height: 50px;">
+                                    <strong class="text-muted" style="float: right;">
+                                        <span>{{ $material->title }}</span>
+                                    </strong>
+                                    @auth
+                                        @if ($material->user_id == auth()->user()->id || auth()->user()->administration_level > 0)
+                                            @if (!auth()->user()->block)
+                                                <form method="POST" action="{{ route('materials.destroy', $material->id) }}"
+                                                    onsubmit="return confirm('هل أنت متأكد أنك تريد حذف المادة هذا؟')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="float-left"><i
+                                                            class="far fa-trash-alt text-danger fa-lg"></i></button>
+                                                </form>
+                                            @endif
                                         @endif
-                                    @endif
-                                @endauth
-                            </div>
-                        </a>
+                                    @endauth
+                                </div>
+                            </a>
+                        </div>
                     </div>
-                </div>
+                @endif
             @endforeach
         </div>
     </div>
@@ -88,6 +90,22 @@
                                                         <strong>{{ $message }}</strong>
                                                     </span>
                                                 @enderror
+                                            </div>
+
+                                            <div class="form-group">
+                                                <x-jet-label for="level" value="{{ __('site.level') }}" />
+                                                <select id="level"
+                                                    class="form-control pr-4 @error('title') is-invalid @enderror"
+                                                    type="number" name="level" :value="old('level')" autofocus>
+                                                    <option class="mr-3" value="">اختر المستوى الدراسي</option>
+                                                    <option value="1">الأول</option>
+                                                    <option value="2">الثاني</option>
+                                                    <option value="3">الثالث</option>
+                                                    <option value="4">الرابع</option>
+                                                    <option value="5">الخامس</option>
+                                                    <option value="6">السادس</option>
+                                                    <option value="7">السابع</option>
+                                                </select>
                                             </div>
 
                                             <div class="form-group row">

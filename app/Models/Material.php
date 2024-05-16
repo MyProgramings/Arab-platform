@@ -11,6 +11,11 @@ class Material extends Model
 
     protected $guarded = [];
 
+    public function user()
+    {
+        return $this->belongsTo('App\Models\User');
+    }
+
     public function lecture()
     {
         return $this->hasMany(Lecture::class);
