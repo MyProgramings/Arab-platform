@@ -24,13 +24,13 @@ class MaterialSeeder extends Seeder
         
         DB::table('materials')->insert([
             'title' => 'Computer',
-            'department_id' => 2,
+            'department_id' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
         DB::table('materials')->insert([
             'title' => 'python',
-            'department_id' => 3,
+            'department_id' => 1,
             'created_at' => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
     }

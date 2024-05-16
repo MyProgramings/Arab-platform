@@ -19,6 +19,20 @@
                 <x-jet-input id="user_name" class="block mt-1 w-full" type="text" name="user_name" :value="old('user_name')"  autofocus autocomplete="user_name" />
             </div>
 
+            <div>
+                <x-jet-label for="level" value="{{ __('site.level') }}" />
+                <select id="level" class="mt-1 @error('title') is-invalid @enderror" type="number" name="level" :value="old('level')"  autofocus style="display: block; width: 100%; height: calc(1.5em + 0.75rem + 2px); padding: 0.375rem 2rem; font-size: 1rem; font-weight: 400; line-height: 1.5; color: #6e707e; background-color: #fff; background-clip: padding-box; border: 1px solid #d1d3e2; border-radius: 0.35rem; transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;">
+                    <option class="mr-3" value="">اختر المستوى الدراسي</option>
+                    <option value="1">الأول</option>
+                    <option value="2">الثاني</option>
+                    <option value="3">الثالث</option>
+                    <option value="4">الرابع</option>
+                    <option value="5">الخامس</option>
+                    <option value="6">السادس</option>
+                    <option value="7">السابع</option>
+                </select>
+            </div>
+
             <div class="mt-4">
                 <x-jet-label for="email" value="{{ __('site.email') }}" />
                 <x-jet-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"  />
