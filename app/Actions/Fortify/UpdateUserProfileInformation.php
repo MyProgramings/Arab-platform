@@ -23,6 +23,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'user_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'max:255', Rule::unique('users')->ignore($user->id)],
             'level' => ['required'],
+            'department_id' => ['required'],
             'photo' => ['nullable', 'mimes:jpg,jpeg,png', 'max:1024'],
         ])->validateWithBag('updateProfileInformation');
 
@@ -39,6 +40,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
                 'user_name' => $input['user_name'],
                 'email' => $input['email'],
                 'level' => $input['level'],
+                'department_id' => $input['department_id'],
             ])->save();
         }
     }
@@ -57,6 +59,7 @@ class UpdateUserProfileInformation implements UpdatesUserProfileInformation
             'user_name' => $input['user_name'],
             'email' => $input['email'],
             'level' => $input['level'],
+            'department_id' => $input['department_id'],
             'email_verified_at' => null,
         ])->save();
 

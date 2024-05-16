@@ -31,6 +31,7 @@ class UserController extends Controller
             'user_name'    => $request->user_name,
             'email'    => $request->email,
             'level'    => $request->level,
+            'department_id'    => $request->department_id,
             'password'    => Hash::make($request->password),
             'terms' => Jetstream::hasTermsAndPrivacyPolicyFeature() ? ['required', 'accepted'] : '',
             'administration_level'    => $request->administration_level,

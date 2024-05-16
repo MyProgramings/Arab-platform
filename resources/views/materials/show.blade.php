@@ -67,21 +67,23 @@
 
                             <tbody>
                                 @foreach ($lectures as $lecture)
-                                    @if ($lecture->material_id == $material->id)
-                                        <tr>
-                                            <td>{{ $lecture->id }}</td>
-                                            <td>{{ $lecture->title }}</td>
-                                            <td>{{ $lecture->description }}</td>
-                                            <td>{{ $lecture->user->user_name }}</td>
-                                            <td>
-                                                @if ($lecture->file_path != 'No File')
-                                                    <a href="{{ route('lecture.download_file', $lecture->id) }}"
-                                                        class="btn btn-sm btn-secondary">
-                                                        <i class="fa fa-download"></i> {{ $lecture->file_path }}
-                                                    </a>
-                                                @endif
-                                            </td>
-                                        </tr>
+                                    @if (auth()->user()->administration_level > 0 || auth()->user()->level == $material->level)
+                                        @if ($lecture->material_id == $material->id)
+                                            <tr>
+                                                <td>{{ $lecture->id }}</td>
+                                                <td>{{ $lecture->title }}</td>
+                                                <td>{{ $lecture->description }}</td>
+                                                <td>{{ $lecture->user->user_name }}</td>
+                                                <td>
+                                                    @if ($lecture->file_path != 'No File')
+                                                        <a href="{{ route('lecture.download_file', $lecture->id) }}"
+                                                            class="btn btn-sm btn-secondary">
+                                                            <i class="fa fa-download"></i> {{ $lecture->file_path }}
+                                                        </a>
+                                                    @endif
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endif
                                 @endforeach
                             </tbody>

@@ -33,6 +33,7 @@ return [
     'name' => 'الاسم الكامل',
     'user_name' => 'اسم المستخدم',
     'level' => 'المستوى',
+    'department' => 'القسم',
     'avatar' => 'الصورة الشخصية ',
     'admin_email' => 'بريد المشرف ',
     'admin_name' => 'اسم المشرف ',

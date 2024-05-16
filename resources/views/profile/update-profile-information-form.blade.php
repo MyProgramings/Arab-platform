@@ -75,6 +75,12 @@
 
         <!-- level -->
         <div class="col-span-6 sm:col-span-4">
+            <x-jet-input id="level" type="number" class="mt-1 block w-full" wire:model.defer="state.department_id" style="display: none;"/>
+            <x-jet-input-error for="level" class="mt-2" />
+        </div>
+
+        <!-- level -->
+        <div class="col-span-6 sm:col-span-4">
             <x-jet-input id="level" type="number" class="mt-1 block w-full" wire:model.defer="state.level" style="display: none;"/>
             <x-jet-input-error for="level" class="mt-2" />
         </div>
