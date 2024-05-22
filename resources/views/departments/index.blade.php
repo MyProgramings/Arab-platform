@@ -20,7 +20,7 @@
                         style="background: rgb(3,54,79);
                     background: linear-gradient(90deg, rgba(3, 54, 79, 0.473) 0%, rgba(0, 213, 255, 0.486) 100%);">
                         <a href="{{ route('material_by_department', $department->id) }}" class="text-white">
-                            <div class="card-icons p-3">
+                            <div class="card-icons p-3" style="height: 120px;">
                                 @php
                                     $words = explode(' ', $department->name);
                                     $acronym = '';
@@ -28,12 +28,12 @@
                                         $acronym .= mb_substr($w, 0, 1);
                                     }
                                 @endphp
-                                <strong style="font-size: 50px">{{ $acronym }}</strong>
+                                <strong style="font-size: 22px">{{ $department->name }}</strong>
                                 <i class="fas fa-2x"></i>
                             </div>
                             <div class="card-footer" style="height: 50px;">
                                 <strong class="text-muted" style="float: right;">
-                                    <span>{{ $department->name }}</span>
+                                    <span style="font-size: 22px">{{ $acronym }}</span>
                                 </strong>
                                 @auth
                                     @if ($department->user_id == auth()->user()->id || auth()->user()->administration_level > 0)

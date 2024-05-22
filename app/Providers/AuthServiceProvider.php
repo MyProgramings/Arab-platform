@@ -28,7 +28,7 @@ class AuthServiceProvider extends ServiceProvider
         $this->registerPolicies();
 
         Gate::define('update-videos', function($user) {
-            return $user->isAdmin();
+            return $user->isSuperAdmin();
         });
 
         Gate::define('update-users', function($user) {
