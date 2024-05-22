@@ -14,6 +14,8 @@ class AdminsController extends Controller
     {
         $numberOfVideos = Video::count();
         $numberOfChannels = User::count();
+        $numberOfStudent = User::where('administration_level', 0)->count();
+        $numberOfteacher = User::where('administration_level', 1)->count();
 
         $mostViews = View::select('user_id', DB::raw('sum(views.views_number) as total'))
         ->groupBy('user_id')
@@ -28,6 +30,6 @@ class AdminsController extends Controller
             array_push($totalViews, $view->total);
         }
     
-        return view('admin.index', compact('numberOfVideos', 'numberOfChannels'))->with('names',json_encode($names,JSON_NUMERIC_CHECK))->with('totalViews',json_encode($totalViews,JSON_NUMERIC_CHECK));
+        return view('admin.index', compact('numberOfVideos', 'numberOfChannels', 'numberOfStudent', 'numberOfteacher'))->with('names',json_encode($names,JSON_NUMERIC_CHECK))->with('totalViews',json_encode($totalViews,JSON_NUMERIC_CHECK));
     }
 }
